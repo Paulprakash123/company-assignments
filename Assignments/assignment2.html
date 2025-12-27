@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            background-color: tomato;
+            width: 200px;
+            height: auto;
+            margin: auto;
+            padding: 20px;
+            border: 3px solid black;
+            border-radius: 10px;
+            margin-top: 13vh;
+        }
+        input{
+            width: 80px;
+            border-radius: 5px;
+            background-color: beige;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Item 1:</p>
+        <input type="text" placeholder="Price" id="p1">
+        <input type="text" placeholder="Quantity" id="q1">
+        <p>Item 2:</p>
+        <input type="text" placeholder="Price" id="p2">
+        <input type="text" placeholder="Quantity" id="q2">
+        <p>Item 3:</p>
+        <input type="text" placeholder="Price" id="p3">
+        <input type="text" placeholder="Quantity" id="q3">
+        <p>Item 4:</p>
+        <input type="text" placeholder="Price" id="p4">
+        <input type="text" placeholder="Quantity" id="q4">
+        <p>Item 5:</p>
+        <input type="text" placeholder="Price" id="p5">
+        <input type="text" placeholder="Quantity" id="q5">
+        <br>
+        <input type="text" placeholder="Coupon Code" id="coupon"><br>
+        <button onclick="return check()">Check</button>
+        <p id="result1"></p>
+        <p id="result2"></p>
+    </div>
+    <script>
+function check(){
+
+    let p1 = Number(document.getElementById("p1").value);
+    let p2 = Number(document.getElementById("p2").value);
+    let p3 = Number(document.getElementById("p3").value);
+    let p4 = Number(document.getElementById("p4").value);
+    let p5 = Number(document.getElementById("p5").value);
+
+    let q1 = Number(document.getElementById("q1").value);
+    let q2 = Number(document.getElementById("q2").value);
+    let q3 = Number(document.getElementById("q3").value);
+    let q4 = Number(document.getElementById("q4").value);
+    let q5 = Number(document.getElementById("q5").value);
+
+    let pricearr = [p1, p2, p3, p4, p5];
+    let quantityarr = [q1, q2, q3, q4, q5];
+
+    let totalamount = 0;
+
+    for(let i = 0; i < pricearr.length; i++){
+        totalamount = totalamount + (pricearr[i] * quantityarr[i]);
+    }
+
+    let final = totalamount;
+
+    if(final > 5000){
+        final = final - (final * 0.10);
+    }
+
+    let coup = document.getElementById("coupon").value;
+    const coupon = "SAVE100";
+
+    if(coup === coupon){
+        final = final - 100;
+    }
+
+    if(final < 0){
+        final = 0;
+    }
+
+    
+
+    document.getElementById("result1").innerHTML =
+        "<h3>Total Amount: ₹" + totalamount + "</h3>";
+
+    document.getElementById("result2").innerHTML =
+        "<h3>Final Payable: ₹" + final + "</h3>";
+
+    return false;
+}
+</script>
+
+
+</body>
+</html>
