@@ -6,7 +6,7 @@
     <title>Document</title>
     <style>
         .container{
-            background-color: tomato;
+            background-color: rgb(114, 244, 22);
             width: 200px;
             height: auto;
             margin: auto;
@@ -20,6 +20,14 @@
             border-radius: 5px;
             background-color: beige;
         }
+       button{
+        margin-left: 60px;
+        border-radius: 5px;
+       }
+       #coupon{
+        margin-left: 45px;
+        border-radius: 5px;
+       }
     </style>
 </head>
 <body>
@@ -39,8 +47,8 @@
         <p>Item 5:</p>
         <input type="text" placeholder="Price" id="p5">
         <input type="text" placeholder="Quantity" id="q5">
-        <br>
-        <input type="text" placeholder="Coupon Code" id="coupon"><br>
+        <br><br>
+        <input type="text" placeholder="Coupon Code" id="coupon"><br><br>
         <button onclick="return check()">Check</button>
         <p id="result1"></p>
         <p id="result2"></p>
@@ -76,10 +84,15 @@ function check(){
     }
 
     let coup = document.getElementById("coupon").value;
-    const coupon = "SAVE100";
+    
 
-    if(coup === coupon){
+    if(coup === "SAVE100"){
         final = final - 100;
+        
+    }
+    else{
+        document.getElementById("result1").innerText="Wrong Coupon Code.";
+        return;
     }
 
     if(final < 0){

@@ -1,14 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <script>
-        let a=3000*(10/100);
-        console.log(a)
-    </script>
+    <style>
+      .container {
+        background-color: cyan;
+        margin: auto;
+        margin-top: 10vh;
+        width: 200px;
+        height: auto;
+        border: 2px solid black;
+        border-radius: 20px;
+        text-align: center;
+      }
+      input {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input
+        type="text"
+        placeholder="Enter name of Emp1"
+        id="name"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="Enter Time management Score"
+        id="tm"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="Enter Communication Score"
+        id="com"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="Enter Problem solving Score"
+        id="pblm"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="Enter Teamwork Score"
+        id="team"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="Enter professionalism Score"
+        id="prof"
+      /><br /><br />
+      <button onclick="return check()">Submit</button>
+      <p id="result"></p>
+    </div>
+    
+    
+
+  <script>
+    function check() {
+      let name = document.getElementById("name").value;
+
+      let tm = Number(document.getElementById("tm").value);
+      let com = Number(document.getElementById("com").value);
+      let pblm = Number(document.getElementById("pblm").value);
+      let team = Number(document.getElementById("team").value);
+      let prof = Number(document.getElementById("prof").value);
+
+      
+      if (name.length < 3) {
+        document.getElementById("result").innerText =
+          "Name must be at least 3 characters";
+        
+      }
+
+      let scores = [tm, com, pblm, team, prof];
+      let totalScore = 0;
+
+      
+      for (let i = 0; i < scores.length; i++) {
+        if (scores[i] < 40) {
+          document.getElementById("result").innerText =
+            " Underperforming";
+          
+        }
+        totalScore += scores[i];
+      }
+
+     
+      let average = totalScore / scores.length;
+
+      
+      let performance = "";
+      if (average >= 85) {
+        performance = "Outstanding";
+      } else if (average >= 70) {
+        performance = "Good";
+      } else {
+        performance = "Needs Improvement";
+      }
+
+      
+      document.getElementById("result").innerHTML =
+        "Employee: " + name +
+        "<br>Average Score: " + average.toFixed(2) +
+        "<br>Performance Status: " + performance;
+    }
+  </script>
 </body>
+</html>
+
+  </body>
 </html>
