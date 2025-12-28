@@ -1,42 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .container {
-        background-color: cyan;
-        margin: auto;
-        margin-top: 10vh;
-        width: 200px;
-        height: auto;
-        border: 2px solid black;
-        border-radius: 20px;
-        text-align: center;
-      }
-      input {
-        margin-top: 10px;
-      }
-      button{
-        margin-top: 20px;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <input type="text" placeholder="Enter route Name" id="rn" />
-      <input type="number" placeholder="route1" id="r1" />
-      <input type="number" placeholder="route2" id="r2" />
-      <input type="number" placeholder="route3" id="r3" />
-      <input type="number" placeholder="route4" id="r4" />
-      <input type="number" placeholder="route5" id="r5" />
-      <input type="number" placeholder="route6" id="r6" />
-      <button onclick="return check()">CHECK</button>
-      <p id="result">Result</p>
-    </div>
-    <script>
 function check() {
   let routeName = document.getElementById("rn").value;
 
@@ -83,7 +44,3 @@ function check() {
     "Average: " + average.toFixed(2) + "<br>" +
     "Status: " + routeStatus;
 }
-</script>
-
-  </body>
-</html>
