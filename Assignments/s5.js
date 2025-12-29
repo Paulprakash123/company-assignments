@@ -1,33 +1,7 @@
 function check(){
             let plantname=document.getElementById("plantid").value;
-            let prule;
-            prule="sol";
-            if(prule==plantname.length[0,3]){
-                document.getElementById("result1").innerText="hiii";
-               
-            }
-            else{
-                document.getElementById("result1").innerText="poo";
-                return;
-            }
-
-
-
-                //         if (!plantname.startsWith("SOL")) {
-                //     document.getElementById("result1").innerText =
-                //         "Plant ID must start with SOL";
-                //     return;
-                // } else {
-                //     document.getElementById("result1").innerText = "";
-                // }
-
-
-
-
-
-
-
-
+            
+ 
             let d1=+document.getElementById("d1").value;
             let d2=+document.getElementById("d2").value;
             let d3=+document.getElementById("d3").value;

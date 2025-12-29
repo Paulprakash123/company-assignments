@@ -32,6 +32,6 @@ function check(){
             else{
                 loginstatus="Allowed"
             }
-            document.getElementById("result").innerHTML="<h3>Total logins :</h3>"+totallogins+"<br>"+"<h3>Status</h3>"+loginstatus;
+            document.getElementById("result").innerHTML="Total logins :"+totallogins+"<br>"+"Status:"+loginstatus;
             
         }
