@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        background-color: brown;
+        margin: auto;
+        margin-top: 10vh;
+        width: 200px;
+        height: auto;
+        border: 2px solid black;
+        border-radius: 20px;
+        text-align: center;
+      }
+      input {
+        margin-top: 10px;
+      }
+      button {
+        border-radius: 10px;
+      }
+      #result {
+        color: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input type="text" placeholder="Enter route Name" id="rn" />
+      <input type="number" placeholder="route1" id="r1" />
+      <input type="number" placeholder="route2" id="r2" />
+      <input type="number" placeholder="route3" id="r3" />
+      <input type="number" placeholder="route4" id="r4" />
+      <input type="number" placeholder="route5" id="r5" />
+      <input type="number" placeholder="route6" id="r6" />
+      <button onclick="return check()">CHECK</button>
+      <p id="result">Result</p>
+    </div>
+    <script>
+      function check() {
+        let routeName = document.getElementById("rn").value;
+
+        let r1 = Number(document.getElementById("r1").value);
+        let r2 = Number(document.getElementById("r2").value);
+        let r3 = Number(document.getElementById("r3").value);
+        let r4 = Number(document.getElementById("r4").value);
+        let r5 = Number(document.getElementById("r5").value);
+        let r6 = Number(document.getElementById("r6").value);
+
+        if (routeName.length < 5) {
+          document.getElementById("result").innerText = "Invalid Route Name";
+          return;
+        }
+
+        let routes = [r1, r2, r3, r4, r5, r6];
+        let total = 0;
+
+        for (let i = 0; i < routes.length; i++) {
+          if (routes[i] >= 8) {
+            document.getElementById("result").innerText = "High Risk Route";
+            return;
+          }
+          total = total + routes[i];
+        }
+
+        let average = total / routes.length;
+        let routeStatus = "";
+
+        if (average <= 3) {
+          routeStatus = "Safe";
+        } else if (average <= 6) {
+          routeStatus = "Moderate";
+        } else {
+          routeStatus = "Risky";
+        }
+
+        document.getElementById("result").innerHTML =
+          "Route: " +
+          routeName +
+          "<br>" +
+          "Average: " +
+          average.toFixed(2) +
+          "<br>" +
+          "Status: " +
+          routeStatus;
+      }
+    </script>
+  </body>
+</html>
