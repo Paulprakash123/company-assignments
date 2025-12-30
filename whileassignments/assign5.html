@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        background-color: tomato;
+        margin: auto;
+        margin-top: 10vh;
+        width: 200px;
+        height: auto;
+        border: 2px solid black;
+        border-radius: 20px;
+        text-align: center;
+      }
+      input {
+        margin-top: 10px;
+      }
+      button {
+        margin-top: 20px;
+        border-radius: 5px;
+      }
+      .plant {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input type="text" placeholder="Expected Daily Units" id="daily" />
+      <input type="number" placeholder="day1" id="d1" />
+      <input type="number" placeholder="day2" id="d2" />
+      <input type="number" placeholder="day3" id="d3" />
+      <input type="number" placeholder="day4" id="d4" />
+      <input type="number" placeholder="day5" id="d5" />
+      <input type="number" placeholder="day6" id="d6" />
+      <input type="number" placeholder="day7" id="d7" />
+      <button onclick="return check()">CHECK</button>
+      <p id="result">Result</p>
+    </div>
+    <script>
+      function check() {
+        let daily = +document.getElementById("daily").value;
+
+        do {
+          if (daily <= 0) {
+            alert("Enter valid units");
+            return;
+          }
+        } while (daily <= 0);
+
+        let arr = [
+          +document.getElementById("d1").value,
+          +document.getElementById("d2").value,
+          +document.getElementById("d3").value,
+          +document.getElementById("d4").value,
+          +document.getElementById("d5").value,
+          +document.getElementById("d6").value,
+          +document.getElementById("d7").value,
+        ];
+
+        let totalreading = 0;
+        let alertdays = 0;
+        let systemFail = false;
+
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === 0) {
+            systemFail = true;
+            break;
+          }
+
+          totalreading += arr[i];
+
+          if (arr[i] < daily) {
+            alertdays++;
+            continue;
+          }
+        }
+
+        if (systemFail) {
+          document.getElementById("result").innerText = "System Failure.";
+          return;
+        }
+
+        let status = "";
+        if (totalreading >= daily * 7) {
+          status = "Good Performance";
+        } else if (totalreading >= daily * 4) {
+          status = "Average Performance";
+        } else {
+          status = "Poor Performance";
+        }
+
+        document.getElementById("result").innerHTML =
+          "Alert Days: " + alertdays + "<br>Status: " + status;
+      }
+    </script>
+  </body>
+</html>
