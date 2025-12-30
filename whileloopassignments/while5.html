@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        background-color: darkcyan;
+        padding: 20px;
+        width: 200px;
+        margin: auto;
+        margin-top: 200px;
+        border-radius: 20px;
+        text-align: center;
+      }
+      button {
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <input type="text" placeholder="Number of Trips" id="trips" /><br /><br />
+      <input type="text" placeholder="Cost Per Trip" id="cost" /><br /><br />
+      <select class="type" id="type">
+        <option>Select Trip Type</option>
+        <option>Office</option>
+        <option>Client</option></select
+      ><br /><br />
+      <button onclick="return check()">Generate Button</button><br /><br />
+      <p id="output">Output Summary</p>
+    </div>
+
+    <script>
+      function check() {
+        let trips = 0;
+        let cost = 0;
+
+        do {
+          trips = +document.getElementById("trips").value;
+          cost = +document.getElementById("cost").value;
+        } while (trips <= 0 || cost <= 0);
+
+        let travelType = document.getElementById("type").value;
+
+        let totalExpense = 0;
+        let validTrips = 0;
+
+        for (let i = 1; i <= trips; i++) {
+          totalExpense = totalExpense + cost;
+          validTrips++;
+
+          if (totalExpense > 10000) {
+            break;
+          }
+        }
+
+        let allowance = 0;
+
+        if (travelType === "Office") {
+          allowance = validTrips * 50;
+        } else if (travelType === "Client") {
+          allowance = validTrips * 100;
+        } else {
+          allowance = 0;
+        }
+
+        let finalExpense = totalExpense;
+        while (allowance > 0) {
+          finalExpense = finalExpense - allowance;
+          allowance = 0;
+        }
+
+        let status = finalExpense <= 10000 ? "Approve" : "Reject";
+
+        document.getElementById("output").innerHTML =
+          "Total Trips: " +
+          validTrips +
+          "<br>" +
+          "Total Expense: ₹" +
+          finalExpense +
+          "<br>" +
+          "Status: " +
+          status;
+      }
+    </script>
+    4
+  </body>
+</html>

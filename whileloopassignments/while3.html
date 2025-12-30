@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        background-color: cadetblue;
+        color: white;
+        border: 3px solid black;
+        border-radius: 30px;
+        margin: auto;
+        margin-top: 200px;
+        width: 200px;
+        height: auto;
+        padding: 30px;
+      }
+      input,
+      button {
+        border: 2px solid black;
+        border-radius: 5px;
+        color: black;
+        font-family: cursive;
+        font-size: small;
+        text-align: center;
+      }
+      button {
+        margin-left: 80px;
+      }
+      #output {
+        color: black;
+        font-family: cursive;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <input type="text" placeholder="Username" id="username" /><br /><br />
+      <input type="text" placeholder="Password" id="password" /><br /><br />
+      <button onclick="return login()">Login</button><br />
+      <p id="output">Message Area</p>
+    </div>
+
+    <script>
+      const correctUsername = "pandu";
+      const correctPassword = "1234";
+
+      let attempts = 0;
+      const maxAttempts = 3;
+
+      function login() {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let output = document.getElementById("output");
+
+        do {
+          while (attempts < maxAttempts) {
+            if (username === correctUsername && password === correctPassword) {
+              document.getElementById("output").innerText = "Login Successful";
+              break;
+            } else if (
+              username === correctUsername &&
+              password !== correctPassword
+            ) {
+              attempts++;
+
+              if (attempts < maxAttempts) {
+                document.getElementById(
+                  "output"
+                ).innerText = `Invalid Password`;
+              } else {
+                document.getElementById("output").innerText = "Account Locked";
+              }
+              break;
+            }
+          }
+          break;
+        } while (false);
+      }
+    </script>
+  </body>
+</html>
