@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .loginpage {
+        background-color: powderblue;
+        padding: 20px;
+        text-align: center;
+        width: 350px;
+      }
+      h3 {
+        margin-right: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loginpage">
+      <h3>Profile SetUp</h3>
+      Username:<input type="text" name="username" id="username" /><br />
+      Bio :<input type="text" name="Bio" id="bio" /><br />
+
+      Category:
+      <input type="checkbox" id="student" />Student
+      <input type="checkbox" id="creator" />Creator
+      <input type="checkbox" id="business" />Business <br /><br />
+      <button onclick="return check()">Save Profile</button>
+      <p id="result">Result</p>
+    </div>
+    <script>
+      function check() {
+        let username = document.getElementById("username").value;
+        let bio = document.getElementById("bio").value;
+        let student = document.getElementById("student").checked;
+        let creator = document.getElementById("creator").checked;
+        let business = document.getElementById("business").checked;
+        // let text = 0;
+        if (username === "") {
+          document.getElementById("result").innerText = "Error";
+        } else if (bio.length > 60) {
+          document.getElementById("result").innerText =
+            "Bio should be within 60 characters";
+        } else if (student) {
+          document.getElementById("result").innerText =
+            "Welcome student!page tone set to educational topics";
+        } else if (creator) {
+          document.getElementById("result").innerText =
+            "Welcome creator!page tone set to creative";
+        } else if (business) {
+          document.getElementById("result").innerText =
+            "Welcome Business user!page tone to business profesionalism";
+        } else {
+          document.getElementById("result").innerText =
+            "Please select category";
+        }
+      }
+    </script>
+  </body>
+</html>

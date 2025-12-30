@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-color: rgb(14, 15, 14);
+        overflow: hidden;
+      }
+      .loginpage {
+        background-color: rgb(72, 173, 187);
+        padding: 10px;
+        text-align: center;
+        width: 80vw;
+        border-radius: 20px;
+        margin: auto;
+        margin-bottom: 20px;
+        border: 2px solid white;
+      }
+      label {
+        width: 78px;
+      }
+      #profile {
+        text-align: center;
+        font-size: larger;
+        font-weight: 500;
+        text-decoration: underline;
+      }
+      .box {
+        background-color: tomato;
+        width: 80vw;
+
+        margin: auto;
+        border-radius: 20px;
+        border: 3px solid rgb(245, 240, 240);
+        padding: 20px;
+      }
+      .theme {
+        text-align: left;
+        font-family: cursive;
+        font-size: larger;
+        color: white;
+      }
+      .loginpage input {
+        border-radius: 5px;
+      }
+      hr {
+        color: white;
+        font-size: xx-large;
+      }
+      #neon,
+      #pastel,
+      #dark {
+        border: 2px solid white;
+      }
+    </style>
+  </head>
+  <body id="body">
+    <div class="container text-center">
+      <div class="loginpage" id="loginpage">
+        <p id="profile">Profile SetUp</p>
+        <label> Username:</label
+        ><input type="text" name="username" id="username" /><br /><br />
+        <label>Bio :</label>
+        <input type="text" name="Bio" id="bio" /><br /><br />
+
+        Category:
+        <input type="checkbox" id="student" />Student
+        <input type="checkbox" id="creator" />Creator
+        <input type="checkbox" id="business" />Business <br /><br />
+        <button onclick="return check1()">Save Profile</button>
+        <p id="result">Result</p>
+      </div>
+      <div class="box" id="box">
+        <div class="theme" id="theme">Choose Theme</div>
+
+        <hr />
+        <input
+          class="btn btn-primary"
+          type="button"
+          value="Pastel"
+          onclick="check2('Pastel')"
+          id="pastel"
+        />
+
+        <input
+          class="btn btn-success"
+          type="button"
+          value="Dark"
+          onclick="check2('Dark')"
+          id="dark"
+        />
+
+        <input
+          class="btn btn-danger"
+          type="button"
+          value="Neon"
+          onclick="check2('Neon')"
+          id="neon"
+        />
+      </div>
+    </div>
+    <script>
+      function check1() {
+        let username = document.getElementById("username").value;
+        let bio = document.getElementById("bio").value;
+        let student = document.getElementById("student").checked;
+        let creator = document.getElementById("creator").checked;
+        let business = document.getElementById("business").checked;
+
+        if (username === "") {
+          document.getElementById("result").innerText = "Error";
+        } else if (bio.length > 60) {
+          document.getElementById("result").innerText =
+            "Bio should be within 60 characters";
+        } else if (student) {
+          document.getElementById("result").innerText =
+            "Welcome student!page tone set to educational topics";
+        } else if (creator) {
+          document.getElementById("result").innerText =
+            "Welcome creator!page tone set to creative";
+        } else if (business) {
+          document.getElementById("result").innerText =
+            "Welcome Business user!page tone to business profesionalism";
+        } else {
+          document.getElementById("result").innerText =
+            "Please select category";
+        }
+      }
+      function check2(userClick) {
+        let box = document.getElementById("box");
+
+        if (userClick === "Pastel") {
+          document.getElementById("body").style.background =
+            " linear-gradient(to right,#FF9A9E, #FAD0C4,#FBC2EB,#A6C1EE)";
+
+          document.getElementById("box").style.backgroundColor = "#FF69B4";
+          document.getElementById("box").style.fontFamily = "cursive";
+          document.getElementById("loginpage").style.backgroundColor =
+            "#FF69B4";
+          document.getElementById("loginpage").style.fontFamily = "cursive";
+          document.getElementById("result").style.color = "black";
+          document.getElementById("profile").style.color = "black";
+          document.getElementById("loginpage").style.border = "2px solid black";
+          document.getElementById("pastel").style.color = "black";
+          document.getElementById("box").style.border = "2px solid black";
+          document.getElementById("pastel").style.border = "2px solid black";
+          document.getElementById("pastel").style.backgroundColor = "#DB7093";
+          document.getElementById("theme").style.color = "black";
+        } else if (userClick === "Dark") {
+          document.getElementById("body").style.background =
+            " linear-gradient(to right,#B2FEFA,#2193B0,#B2FEFA,#6DD5ED,#B2FEFA)";
+          document.getElementById("box").style.backgroundColor = "#87CEFA";
+          document.getElementById("box").style.fontFamily = "Times New Roman";
+          document.getElementById("loginpage").style.backgroundColor =
+            "#87CEFA";
+          document.getElementById("loginpage").style.fontFamily = "cursive";
+          document.getElementById("result").style.color = "red";
+          document.getElementById("profile").style.color = "red";
+          document.getElementById("loginpage").style.border = "2px solid red";
+          document.getElementById("dark").style.color = "black";
+          document.getElementById("box").style.border = "2px solid red";
+          document.getElementById("dark").style.border = "2px solid red";
+          document.getElementById("dark").style.backgroundColor = "#DB7093";
+          document.getElementById("theme").style.color = "red";
+        } else if (userClick === "Neon") {
+          document.getElementById("body").style.background =
+            " linear-gradient(to right, #FF512F,#DD2476,#1FA2FF)";
+          document.getElementById("box").style.backgroundColor = "#B19CD9";
+          document.getElementById("loginpage").style.backgroundColor =
+            "#B19CD9";
+          document.getElementById("loginpage").style.fontFamily = "cursive";
+          document.getElementById("loginpage").style.border = "2px solid green";
+          document.getElementById("box").style.fontFamily = "Georgia";
+          document.getElementById("result").style.color = "white";
+          document.getElementById("profile").style.color = "white";
+          document.getElementById("neon").style.color = "black";
+          document.getElementById("box").style.border = "2px solid green";
+          document.getElementById("box").style.border = "2px solid green";
+          document.getElementById("neon").style.backgroundColor = "#DB7093";
+          document.getElementById("theme").style.color = "green";
+        }
+      }
+    </script>
+  </body>
+</html>

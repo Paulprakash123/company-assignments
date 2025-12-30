@@ -25,6 +25,7 @@ function check(){
 
     if(final > 5000){
         final = final - (final * 0.10);
+        
     }
 
     let coup = document.getElementById("coupon").value;
