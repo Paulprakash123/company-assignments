@@ -1,5 +1,5 @@
 function check(){
-            let plantname=document.getElementById("plantid").value;
+            // let plantname=document.getElementById("plantid").value;
             
  
             let d1=+document.getElementById("d1").value;
@@ -22,12 +22,13 @@ function check(){
             if(count==0){
                 status="Healthy";
             }
+
             else if(count==1 || count==2){
                 status="Warning";
             }
             else {
                 status="Critical";
             }
-            document.getElementById("result").innerHTML="<h3>Alert Days :</h3>"+count+"<br>"+"<h3> System Status :</h3>"+status;
+            document.getElementById("result").innerHTML="Alert Days :"+count+"<br>"+" System Status :"+status;
             return false;
         }

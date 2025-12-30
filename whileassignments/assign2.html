@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+        background-color: tomato;
+        border: 3px solid black;
+        text-align: center;
+        margin: auto;
+        padding: 20px;
+        width: 200px;
+        margin-top: 200px;
+        border-radius: 15px;
+      }
+      input{
+        border: 2px solid black;
+        border-radius: 3px;
+      }
+      button {
+        font-family: cursive;
+        border: 2px solid black;
+        font-style: italic;
+        font-size: 15px;
+      }
+      #result {
+        color: aliceblue;
+      }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+      <input
+        type="number"
+        placeholder="number of items"
+        id="items"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="item price"
+        id="price"
+      /><br /><br />
+     
+      <input
+        type="text"
+        placeholder="Coupon code"
+        id="coupon"
+      /><br /><br />
+      <button onclick="return check()">Validate Order</button>
+      <p id="output">Output Section</p>
+    </div>
+    <script>
+        function check(){
+            let items=+document.getElementById("items").value;
+            let price=+document.getElementById("price").value;
+            let coupon=document.getElementById("coupon").value;
+            let result=0;
+            let out="";
+            
+            for(let i=1;i<=items;i++){
+                if(price<=0){
+                  continue;
+                }
+                 result+=price;
+            }
+            
+            let discount=0;
+            
+            do{
+                if(coupon=="FLASH10"){
+                  discount=result*(10/100);
+                  result=result-discount;
+                  
+                  if(result>=50000){
+                    out="High Risk Order"
+                    break;
+                  }
+                  
+                }
+                else if(coupon=="FLASH20"){
+                  discount=result*(20/100);
+                  result=result-discount;
+                  
+                  if(result>=50000){
+                    break;
+                }
+              }
+                else{
+                  discount=0;
+                  result=result-discount;
+                  
+                  if(result>=50000){
+                    break;
+                }
+            }
+            
+          }while(false);
+               
+            document.getElementById("output").innerHTML="Order Valid"+"<br>"+"Final Amount :"+result+"<br>";
+        }
+    </script>
+    
+</body>
+</html>

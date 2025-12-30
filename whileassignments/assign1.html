@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        background-color: tomato;
+        border: 3px solid black;
+        text-align: center;
+        margin: auto;
+        padding: 20px;
+        width: 200px;
+        margin-top: 200px;
+        border-radius: 15px;
+      }
+      input{
+        border: 2px solid black;
+        border-radius: 3px;
+      }
+      button {
+        font-family: cursive;
+        border: 2px solid black;
+        font-style: italic;
+        font-size: 15px;
+      }
+      #result {
+        color: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input
+        type="text"
+        placeholder="Enter Employee Name"
+        id="ename"
+      /><br /><br />
+      <input
+        type="number"
+        placeholder="Total Working Days"
+        id="tday"
+      /><br /><br />
+      <input type="number" placeholder="Days Present" id="pday" /><br /><br />
+      <input
+        type="number"
+        placeholder="Per-Day Salary"
+        id="salary"
+      /><br /><br />
+      <button onclick="return check()">Calculate salary</button>
+      <p id="output">Output Section</p>
+      </div>
+      <script>
+        function check() {
+          let en = document.getElementById("ename").value;
+          let td = +document.getElementById("tday").value;
+          let pd = +document.getElementById("pday").value;
+          let salary = +document.getElementById("salary").value;
+
+          do {
+            if (td <= 0 || pd < 0 || salary < 0) {
+              document.getElementById("output").innerText = "Invalid Input";
+              return;
+            }
+            if (pd > td) {
+              document.getElementById("output").innerText =
+                "Days present cannot be more than total days";
+              return;
+            }
+            break;
+          } while (true);
+
+          let totalsalary = 0;
+          for (let i = 1; i <= td; i++) {
+            if (i > pd) {
+              continue;
+            }
+          }
+
+          totalsalary = pd * salary;
+
+          let attendance;
+          attendance = (pd / td) * 100;
+
+          if (attendance < 60) {
+            totalsalary = 0;
+            document.getElementById("output").innerText = "salary=0";
+          } else if (attendance < 80) {
+            totalsalary = totalsalary - totalsalary * 0.1;
+            document.getElementById("output").innerText =
+              "Your attendance is below 80%";
+          } else {
+            document.getElementById("output").innerText = "Full Salary";
+          }
+          document.getElementById("output").innerHTML =
+            "Employee:" +
+            en +
+            "<br>" +
+            "Attendance:" +
+            attendance +"%"
+            "<br>" +
+            "Final salary:" +
+            totalsalary+"₹";
+        }
+      </script>
+    
+  </body>
+</html>
