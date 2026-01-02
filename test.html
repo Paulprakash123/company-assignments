@@ -266,10 +266,11 @@
       </div>
     </div>
     <script>
+      let username;
+      let bio;
       function check1() {
-        let username = document.getElementById("usernameInput").value.trim();
-        let bio = document.getElementById("bioInput").value.trim();
-
+        username = document.getElementById("usernameInput").value;
+        bio = document.getElementById("bioInput").value;
         let student = document.getElementById("student").checked;
         let creator = document.getElementById("creator").checked;
         let business = document.getElementById("business").checked;
@@ -306,19 +307,12 @@
           document.getElementById("result").innerText =
             "Welcome business user! Page tone set to professionalism";
         }
-
-        document.getElementById("hidecol").style.display = "block";
-        document.getElementById("previewbox").style.display = "block";
-
-        document.getElementById("finalname").innerText = "@" + username;
-        document.getElementById("finalbio").innerText = bio;
-        document.getElementById("finalbio").style.display = "block";
       }
       let themeSelected = false;
       function check2(userclick) {
         themeSelected = true;
         if (userclick === "pastel") {
-          document.getElementById("hidecol").style.display = "block";
+          // document.getElementById("hidecol").style.display = "block";
           document.getElementById("finalbio").style.fontFamily = "cursive";
           document.getElementById("finalname").style.fontFamily = "cursive";
           document.getElementById("engscore").style.fontFamily = "cursive";
@@ -347,7 +341,7 @@
           document.getElementById("link3").style.backgroundColor = "tomato";
           document.getElementById("hidecol").style.color = "black";
         } else if (userclick === "dark") {
-          document.getElementById("hidecol").style.display = "block";
+          // document.getElementById("hidecol").style.display = "block";
           document.getElementById("hidecol").style.borderRadius = "30px";
           document.getElementById("previewbox").style.borderRadius = "15px";
           document.getElementById("previewbox").style.backgroundColor =
@@ -374,7 +368,7 @@
           document.getElementById("link3").style.backgroundColor = "white";
           document.getElementById("hidecol").style.color = "white";
         } else if (userclick === "neon") {
-          document.getElementById("hidecol").style.display = "block";
+          // document.getElementById("hidecol").style.display = "block";
 
           document.getElementById("hidecol").style.borderRadius = "30px";
           document.getElementById("previewbox").style.borderRadius = "15px";
@@ -408,14 +402,18 @@
           document.getElementById("hidecol").style.color = "black";
         }
       }
+
       let count = 0;
-
+      let titleInput;
+      let urlInput;
+      let title;
+      let url;
       function check3() {
-        let titleInput = document.getElementById("link");
-        let urlInput = document.getElementById("url");
+        titleInput = document.getElementById("link");
+        urlInput = document.getElementById("url");
 
-        let title = titleInput.value;
-        let url = urlInput.value;
+        title = titleInput.value;
+        url = urlInput.value;
 
         if (title === "" || url === "") {
           document.getElementById("addlinks").innerText =
@@ -448,17 +446,19 @@
         titleInput.value = "";
         urlInput.value = "";
       }
+      let click;
       function check4() {
-        let click;
-        let shb = document.getElementById("shb").value;
-        if (click !== shb) {
-          document.getElementById("finalbio").style.display = "none";
+        click = document.getElementById("finalbio");
+
+        if (click.style.display === "none") {
+          click.style.display = "block";
         } else {
-          document.getElementById("finalbio").style.display = "block";
+          click.style.display = "none";
         }
       }
+      let links;
       function check5() {
-        let links = document.getElementById("linkse");
+        links = document.getElementById("linkse");
 
         if (links.style.display === "none") {
           links.style.display = "block";
@@ -466,8 +466,9 @@
           links.style.display = "none";
         }
       }
+      let score;
       function check6() {
-        let score = 0;
+        score = 0;
 
         let bio = document.getElementById("bioInput").value;
         if (bio !== "") {
@@ -486,6 +487,12 @@
             break;
           }
         }
+        document.getElementById("hidecol").style.display = "block";
+        document.getElementById("previewbox").style.display = "block";
+
+        document.getElementById("finalname").innerText = "@" + username;
+        document.getElementById("finalbio").innerText = bio;
+        document.getElementById("finalbio").style.display = "block";
 
         document.getElementById("engscore").innerText =
           "Engagement Score: " + score + " / 100";
