@@ -2,59 +2,493 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Profile Builder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <style>
-      .loginpage {
-        background-color: powderblue;
-        padding: 20px;
-        text-align: center;
-        width: 350px;
+      html,
+      body {
+        width: 95%;
+        height: 100%;
+        margin: auto;
+        font-family: Arial, sans-serif;
       }
-      h3 {
-        margin-right: 200px;
+
+      body {
+        background-color: rgb(105, 97, 97);
+        overflow-x: hidden;
+      }
+
+      .full-screen {
+        min-height: 100dvh;
+        padding: 8px;
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .box {
+        border: 2px solid #999;
+        background: #fff;
+        padding: 8px;
+      }
+      .bx {
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .box-title {
+        font-weight: bold;
+        border-bottom: 2px solid #999;
+        margin-bottom: 6px;
+        padding-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .preview-box {
+        border: 2px solid #999;
+        background: #e9e9e9;
+        padding: 15px;
+        text-align: center;
+        min-height: 260px;
+      }
+
+      .preview-btn {
+        width: 50%;
+        margin: auto;
+        margin-bottom: 8px;
+        border: 2px solid #777;
+        background: #dcdcdc;
+        font-size: 14px;
+      }
+
+      input {
+        border: 2px solid #777 !important;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .small-text {
+        font-size: 13px;
+        color: #555;
+      }
+      #dark,
+      #neon,
+      #pastel {
+        color: red;
+      }
+      #hidecol {
+        display: none;
+      }
+      #link1,
+      #link2,
+      #link3,
+      #finalbio,
+      #previewbox {
+        display: none;
       }
     </style>
   </head>
-  <body>
-    <div class="loginpage">
-      <h3>Profile SetUp</h3>
-      Username:<input type="text" name="username" id="username" /><br />
-      Bio :<input type="text" name="Bio" id="bio" /><br />
 
-      Category:
-      <input type="checkbox" id="student" />Student
-      <input type="checkbox" id="creator" />Creator
-      <input type="checkbox" id="business" />Business <br /><br />
-      <button onclick="return check()">Save Profile</button>
-      <p id="result">Result</p>
+  <body>
+    <div class="container-fluid full-screen">
+      <div class="row g-2">
+        <div class="col-lg-8 col-12 column">
+          <div class="box">
+            <div class="box-title" style="text-align: center" id="profile">
+              Profile Setup
+            </div>
+
+            <div class="row">
+              <div class="col-4 col-sm-3">
+                <label for="usernameInput">Username:</label>
+              </div>
+              <div class="col-8 col-sm-9">
+                <input
+                  type="text"
+                  id="usernameInput"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+
+            <div class="row align-items-center mb-1">
+              <div class="col-4 col-sm-3">
+                <label for="bioInput">Bio:</label>
+              </div>
+              <div class="col-8 col-sm-9">
+                <input
+                  type="text"
+                  id="bioInput"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+
+            <div class="row align-items-center mb-2">
+              <div class="col-3 col-sm-2">
+                <label id="category">Category:</label>
+              </div>
+              <div class="col-9 col-sm-10">
+                <input type="checkbox" id="student" /> Student
+                <input type="checkbox" class="ms-2" id="creator" /> Creator
+                <input type="checkbox" class="ms-2" id="business" /> Business
+              </div>
+            </div>
+
+            <button type="button" onclick="check1()">Save Profile</button>
+
+            <p id="result"></p>
+          </div>
+
+          <div class="box">
+            <div class="box-title" id="theme" style="text-align: center">
+              Choose Theme
+            </div>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              id="pastel"
+              onclick="return check2('pastel')"
+            >
+              🎨Pastel
+            </button>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              id="dark"
+              onclick="return check2('dark')"
+            >
+              ♠️ Dark
+            </button>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              id="neon"
+              onclick="return check2('neon')"
+            >
+              🔥Neon
+            </button>
+          </div>
+
+          <div class="box">
+            <div class="box-title" id="linksec" style="text-align: center">
+              Add Your Links (Max 3)
+            </div>
+
+            <div class="row">
+              <div class="col-4 col-sm-3">
+                <label for="linkT">Link Title:</label>
+              </div>
+              <div class="col-8 col-sm-9">
+                <input
+                  type="text"
+                  id="link"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4 col-sm-3">
+                <label for="urlT">URL:</label>
+              </div>
+              <div class="col-8 col-sm-9">
+                <input
+                  type="text"
+                  id="url"
+                  class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+            <button onclick="return check3()">Add Link</button>
+            <p>Links Added: <span id="counting">0</span> / 3</p>
+            <p id="addlinks"></p>
+          </div>
+
+          <div class="box">
+            <div class="box-title" id="visibility" style="text-align: center">
+              Visibility Controls
+            </div>
+            <button
+              class="btn btn-outline-secondary btn-sm me-1"
+              id="shb"
+              onclick="return check4()"
+            >
+              Hide Bio
+            </button>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              id="shl"
+              onclick="return check5()"
+            >
+              Hide Links
+            </button>
+          </div>
+
+          <div class="box text-center">
+            <div class="box-title">Engagement Score</div>
+
+            <button
+              class="btn btn-secondary btn-sm"
+              id="preview"
+              onclick="return check6()"
+            >
+              Preview My Score
+            </button>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-12 column" id="hidecol">
+          <div class="bx h-100 d-flex flex-column">
+            <div class="box-title" id="livepre">Live Preview</div>
+
+            <div class="preview-box" id="previewbox">
+              <h6 id="finalname"></h6>
+              <p class="small-text" id="finalbio"></p>
+              <div id="linkse">
+                <button class="preview-btn" id="link1"></button>
+                <button class="preview-btn" id="link2"></button>
+                <button class="preview-btn" id="link3"></button>
+              </div>
+              <p id="engscore"></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
-      function check() {
-        let username = document.getElementById("username").value;
-        let bio = document.getElementById("bio").value;
+      function check1() {
+        let username = document.getElementById("usernameInput").value.trim();
+        let bio = document.getElementById("bioInput").value.trim();
+
         let student = document.getElementById("student").checked;
         let creator = document.getElementById("creator").checked;
         let business = document.getElementById("business").checked;
-        // let text = 0;
+
         if (username === "") {
-          document.getElementById("result").innerText = "Error";
-        } else if (bio.length > 60) {
+          document.getElementById("result").innerText = "Username is required";
+          return;
+        }
+
+        if (bio === "") {
+          document.getElementById("result").innerText = "Bio is required";
+          return;
+        }
+
+        if (bio.length > 60) {
           document.getElementById("result").innerText =
             "Bio should be within 60 characters";
-        } else if (student) {
+          return;
+        }
+
+        if (!student && !creator && !business) {
           document.getElementById("result").innerText =
-            "Welcome student!page tone set to educational topics";
+            "Please select a category";
+          return;
+        }
+
+        if (student) {
+          document.getElementById("result").innerText =
+            "Welcome student! Page tone set to educational topics";
         } else if (creator) {
           document.getElementById("result").innerText =
-            "Welcome creator!page tone set to creative";
+            "Welcome creator! Page tone set to creative";
         } else if (business) {
           document.getElementById("result").innerText =
-            "Welcome Business user!page tone to business profesionalism";
-        } else {
-          document.getElementById("result").innerText =
-            "Please select category";
+            "Welcome business user! Page tone set to professionalism";
         }
+
+        document.getElementById("hidecol").style.display = "block";
+        document.getElementById("previewbox").style.display = "block";
+
+        document.getElementById("finalname").innerText = "@" + username;
+        document.getElementById("finalbio").innerText = bio;
+        document.getElementById("finalbio").style.display = "block";
+      }
+      let themeSelected = false;
+      function check2(userclick) {
+        themeSelected = true;
+        if (userclick === "pastel") {
+          document.getElementById("hidecol").style.display = "block";
+          document.getElementById("finalbio").style.fontFamily = "cursive";
+          document.getElementById("finalname").style.fontFamily = "cursive";
+          document.getElementById("engscore").style.fontFamily = "cursive";
+          document.getElementById("finalname").style.textDecoration =
+            "underline";
+          document.getElementById("finalbio").style.fontWeight = 300;
+          document.getElementById("finalname").style.fontWeight = 400;
+          document.getElementById("finalbio").style.fontSize = "medium";
+          document.getElementById("finalbio").style.color = "black";
+          document.getElementById("finalname").style.fontSize = "x-large";
+          document.getElementById("hidecol").style.borderRadius = "30px";
+          document.getElementById("previewbox").style.borderRadius = "15px";
+          document.getElementById("previewbox").style.backgroundColor =
+            "#FADADD";
+          document.getElementById("hidecol").style.background =
+            " linear-gradient(to right, #FFD1DC,  #CDB4DB,  #A2D2FF)";
+          document.getElementById("livepre").style.fontFamily = "cursive";
+          document.getElementById("link1").style.fontFamily = "cursive";
+          document.getElementById("link2").style.fontFamily = "cursive";
+          document.getElementById("link3").style.fontFamily = "cursive";
+          document.getElementById("link1").style.borderRadius = "6px";
+          document.getElementById("link2").style.borderRadius = "6px";
+          document.getElementById("link3").style.borderRadius = "6px";
+          document.getElementById("link1").style.backgroundColor = "tomato";
+          document.getElementById("link2").style.backgroundColor = "tomato";
+          document.getElementById("link3").style.backgroundColor = "tomato";
+          document.getElementById("hidecol").style.color = "black";
+        } else if (userclick === "dark") {
+          document.getElementById("hidecol").style.display = "block";
+          document.getElementById("hidecol").style.borderRadius = "30px";
+          document.getElementById("previewbox").style.borderRadius = "15px";
+          document.getElementById("previewbox").style.backgroundColor =
+            "#9E9E9E";
+          document.getElementById("finalbio").style.fontFamily = "vernada";
+          document.getElementById("engscore").style.fontFamily = "vernada";
+          document.getElementById("finalbio").style.overflowX = "hidden";
+          document.getElementById("finalname").style.fontFamily = "vernada";
+          document.getElementById("finalbio").style.fontWeight = 300;
+          document.getElementById("finalbio").style.color = "white";
+          document.getElementById("finalname").style.fontWeight = 400;
+          document.getElementById("finalbio").style.fontSize = "medium";
+          document.getElementById("finalname").style.fontSize = "x-large";
+          document.getElementById("finalname").style.textDecoration =
+            "underline";
+          document.getElementById("hidecol").style.background =
+            " linear-gradient(135deg, #121212, #2D2D2D, #444444)";
+          document.getElementById("livepre").style.fontFamily = "vernada";
+          document.getElementById("link2").style.fontFamily = "vernada";
+          document.getElementById("link1").style.fontFamily = "vernada";
+          document.getElementById("link3").style.fontFamily = "vernada";
+          document.getElementById("link1").style.backgroundColor = "white";
+          document.getElementById("link2").style.backgroundColor = "white";
+          document.getElementById("link3").style.backgroundColor = "white";
+          document.getElementById("hidecol").style.color = "white";
+        } else if (userclick === "neon") {
+          document.getElementById("hidecol").style.display = "block";
+
+          document.getElementById("hidecol").style.borderRadius = "30px";
+          document.getElementById("previewbox").style.borderRadius = "15px";
+          document.getElementById("previewbox").style.backgroundColor =
+            "#F2F2F2";
+          document.getElementById("finalbio").style.fontWeight = 300;
+          document.getElementById("finalbio").style.color = "black";
+          document.getElementById("finalname").style.fontWeight = 400;
+          document.getElementById("finalbio").style.fontSize = "medium";
+          document.getElementById("finalname").style.fontSize = "x-large";
+          document.getElementById("finalbio").style.fontFamily = "Lucida Sans";
+          document.getElementById("finalname").style.fontFamily = "Lucida Sans";
+          document.getElementById("finalname").style.textDecoration =
+            "underline";
+          document.getElementById("hidecol").style.background =
+            " linear-gradient(to right, #FF00FF, #9D00FF)";
+          document.getElementById("livepre").style.fontFamily = "Lucida Sans";
+          document.getElementById("link3").style.fontFamily = "Lucida Sans";
+          document.getElementById("link2").style.fontFamily = "Lucida Sans";
+          document.getElementById("link1").style.fontFamily = "Lucida Sans";
+          document.getElementById("engscore").style.fontFamily = "Lucida Sans";
+          document.getElementById("link1").style.borderRadius = "10px";
+          document.getElementById("link2").style.borderRadius = "10px";
+          document.getElementById("link3").style.borderRadius = "10px";
+          document.getElementById("link1").style.border = "2px solid black";
+          document.getElementById("link2").style.border = "2px solid black";
+          document.getElementById("link3").style.border = "2px solid black";
+          document.getElementById("link1").style.backgroundColor = "pink";
+          document.getElementById("link2").style.backgroundColor = "pink";
+          document.getElementById("link3").style.backgroundColor = "pink";
+          document.getElementById("hidecol").style.color = "black";
+        }
+      }
+      let count = 0;
+
+      function check3() {
+        let titleInput = document.getElementById("link");
+        let urlInput = document.getElementById("url");
+
+        let title = titleInput.value;
+        let url = urlInput.value;
+
+        if (title === "" || url === "") {
+          document.getElementById("addlinks").innerText =
+            "Please enter both Title and URL";
+          return;
+        }
+
+        if (count >= 3) {
+          document.getElementById("addlinks").innerText =
+            "Only 3 links are allowed";
+          return;
+        }
+
+        count++;
+        document.getElementById("counting").innerText = count;
+        document.getElementById("previewbox").style.display = "block";
+
+        if (count == 1) {
+          document.getElementById("link1").innerText = title;
+          document.getElementById("link1").style.display = "block";
+        }
+        if (count == 2) {
+          document.getElementById("link2").style.display = "block";
+          document.getElementById("link2").innerText = title;
+        }
+        if (count == 3) {
+          document.getElementById("link3").style.display = "block";
+          document.getElementById("link3").innerText = title;
+        }
+        titleInput.value = "";
+        urlInput.value = "";
+      }
+      function check4() {
+        let click;
+        let shb = document.getElementById("shb").value;
+        if (click !== shb) {
+          document.getElementById("finalbio").style.display = "none";
+        } else {
+          document.getElementById("finalbio").style.display = "block";
+        }
+      }
+      function check5() {
+        let links = document.getElementById("linkse");
+
+        if (links.style.display === "none") {
+          links.style.display = "block";
+        } else {
+          links.style.display = "none";
+        }
+      }
+      function check6() {
+        let score = 0;
+
+        let bio = document.getElementById("bioInput").value;
+        if (bio !== "") {
+          score = score + 20;
+        }
+
+        if (themeSelected === true) {
+          score = score + 20;
+        }
+
+        for (let i = 1; i <= count; i++) {
+          score = score + 20;
+
+          if (score > 100) {
+            score = 100;
+            break;
+          }
+        }
+
+        document.getElementById("engscore").innerText =
+          "Engagement Score: " + score + " / 100";
       }
     </script>
   </body>
