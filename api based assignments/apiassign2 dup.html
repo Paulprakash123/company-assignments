@@ -1,0 +1,106 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>System Health Dashboard</title>
+
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
+
+        <style>
+          body {
+            background-color: #f4f6f8;
+          }
+          .card {
+            width: 18rem;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px;
+          }
+        </style>
+      </head>
+
+      <body class="d-flex justify-content-center">
+       
+        <div class="card" id="netflixCard">
+          <h5 id="netflixName"></h5>
+          <p id="netflixStatus"></p>
+          <p id="netflixTime"></p>
+        </div>
+
+    
+        <div class="card" id="awsCard">
+          <h5 id="awsName"></h5>
+          <p id="awsStatus"></p>
+          <p id="awsTime"></p>
+        </div>
+
+   
+        <div class="card" id="payCard">
+          <h5 id="payName"></h5>
+          <p id="payStatus"></p>
+          <p id="payTime"></p>
+        </div>
+
+        <script>
+          
+          let netflix = {
+            serviceName: "Netflix",
+            status: "up",
+            responseTime: 120,
+          };
+
+          let aws = {
+            serviceName: "AWS",
+            status: "slow",
+            responseTime: 450,
+          };
+
+          let payment = {
+            serviceName: "Payment Gateway",
+            status: "down",
+            responseTime: 0,
+          };
+
+          function update(service, cardId, nameId, statusId, timeId) {
+            document.getElementById(nameId).innerText = service.serviceName;
+
+            if (service.status === "up") {
+              document.getElementById(cardId).style.backgroundColor =
+                "lightgreen";
+              document.getElementById(statusId).innerText =
+                "🟢 Service Running";
+              document.getElementById(timeId).innerText =
+                "Response Time: " + service.responseTime ;
+            } else if (service.status === "slow") {
+              document.getElementById(cardId).style.backgroundColor = "yellow";
+              document.getElementById(statusId).innerText = "🟡 Service Slow";
+              document.getElementById(timeId).innerText = "";
+            } else {
+              document.getElementById(cardId).style.backgroundColor =
+                "lightcoral";
+              document.getElementById(statusId).innerText = "🔴 Service Down";
+              document.getElementById(timeId).innerText = "";
+            }
+          }
+
+          
+          update(
+            netflix,
+            "netflixCard",
+            "netflixName",
+            "netflixStatus",
+            "netflixTime"
+          );
+          update(aws, "awsCard", "awsName", "awsStatus", "awsTime");
+          update(payment, "payCard", "payName", "payStatus", "payTime");
+        </script>
+      </body>
+    </html>
+  </body>
+</html>
