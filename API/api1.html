@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="username"></h1>
+    <h3 id="mood"></h3>
+    <h3 id="energy"></h3>
+    <p id="errormsg"></p>
+    <script>
+      let apiResponse = {
+        status: "success",
+        username: "Pandu",
+        mood: "Happy",
+        energy: "High",
+      };
+      function update(response) {
+        if (apiResponse.status === "success") {
+          document.getElementById("username").innerText =
+            "Username : " + apiResponse.username;
+          document.getElementById("mood").innerText =
+            "Mood : " + apiResponse.mood;
+          document.getElementById("energy").innerText =
+            "Energy : " + apiResponse.energy;
+        } else {
+          document.getElementById("errormsg").innerText = "Error";
+        }
+      }
+      update(apiResponse.status);
+    </script>
+  </body>
+</html>

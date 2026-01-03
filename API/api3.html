@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="handleresponse(successResponse)">Success</button
+    ><br /><br />
+    <button onclick="handleresponse(errorResponse)">Error</button><br /><br />
+    <button onclick="handleresponse(emptyResponse)">Empty</button>
+
+    <p id="result"></p>
+    <p id="result1"></p>
+
+    <script>
+      let successResponse = {
+        status: "success",
+        data: "Data loaded successfully",
+      };
+
+      let errorResponse = {
+        status: "error",
+        message: "Invalid request",
+      };
+
+      let emptyResponse = {
+        status: "success",
+        data: null,
+      };
+      function handleresponse(response) {
+        if (response.status === "success" && response.data) {
+          document.getElementById("result").innerText =
+            "Success and data is present";
+          document.getElementById("result1").innerText =
+            "Data is: " + response.data;
+        } else if (response.status === "success" && response.data === null) {
+          document.getElementById("result").innerText =
+            "Success but no data available";
+        } else {
+          document.getElementById("result").innerText =
+            "Error: " + response.message;
+        }
+      }
+    </script>
+  </body>
+</html>

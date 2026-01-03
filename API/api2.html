@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="netflix">Netflix status</p>
+    <p id="aws">AWS status</p>
+    <p id="payment">Payment Gateway status</p>
+
+    <script>
+      let serviceResponse = {
+        serviceName: "Payment Gateway",
+        status: "up",
+        responseTime: 0,
+      };
+      function update(response) {
+        if (serviceResponse.status === "up") {
+          document.getElementById("payment").innerText = " 🟢service running";
+        } else if (serviceResponse.status === "slow") {
+          document.getElementById("payment").innerText = "🟡 Service Slow";
+        } else {
+          document.getElementById("payment").innerText = "🔴 Service down";
+        }
+      }
+      update(serviceResponse);
+    </script>
+  </body>
+</html>
