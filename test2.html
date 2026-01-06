@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>User List</h2>
+    <button onclick="getData()">Load Users</button>
+
+    <div id="output"></div>
+
+    <script>
+      async function getData() {
+        try {
+          let response = await fetch(
+            "https://jsonplaceholder.typicode.com/users"
+          );
+          let data = await response.json();
+          displayUsers(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      function displayUsers(users) {
+        let output = document.getElementById("output");
+        output.innerHTML = ""; // clear previous data
+
+        for (let i = 0; i < users.length; i++) {
+          output.innerHTML += `
+      <p>
+        <b>Name:</b> ${users[i].name} <br>
+        <b>Email:</b> ${users[i].email} <br>
+        <b>City:</b> ${users[i].address.city}
+      </p>
+      <hr>
+    `;
+        }
+      }
+    </script>
+  </body>
+</html>
