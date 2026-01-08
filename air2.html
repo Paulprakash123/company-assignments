@@ -41,8 +41,6 @@
               allRecords.push(data.records[i]);
             }
 
-            // allRecords = allRecords.concat(data.records);
-
             if (data.offset) {
               offset = data.offset;
               getRecords();
@@ -52,12 +50,13 @@
               let display = "";
 
               for (let i = 0; i < allRecords.length; i++) {
-                display = display + "<h4>Record " + (i + 1) + "</h4>";
+                display = display + "<h3>Record " + (i + 1) + "</h3>";
                 let fields = allRecords[i].fields;
                 for (let key in fields) {
                   display =
                     display + "<p>" + key + " : " + fields[key] + "</p>";
                 }
+                display += "<hr>";
               }
 
               document.getElementById("result").innerHTML = display;
