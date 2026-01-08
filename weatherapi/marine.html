@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button onclick="getMarine()">Get Marine Info</button>
+    <p id="result"></p>
+
+    <script>
+      function getMarine() {
+        let url =
+          "https://api.weatherapi.com/v1/marine.json?key=a62ecb40fc104dc3a1952502260601&q=25.76,-80.19";
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            let h = data.forecast.forecastday[0].hour[0];
+            document.getElementById("result").innerHTML =
+              "Wave Height: " +
+              h.sig_ht_mt +
+              " m<br>" +
+              "Wind Speed: " +
+              h.wind_kph +
+              " kph<br>" +
+              "Water Temp: " +
+              h.water_temp_c +
+              " °C<br>" +
+              "Visibility: " +
+              h.vis_km +
+              " km";
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <input type="text" placeholder="Enter City" id="city" />
+    <button onclick="getHistory()">Get Astronomy</button>
+    <p id="result"></p>
+
+    <script>
+      function getHistory() {
+        let city = document.getElementById("city").value;
+        let url =
+          "https://api.weatherapi.com/v1/astronomy.json?key=82c7a3bb9436400c90752551260601&q=" +
+          city;
+        fetch(url)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            if (data.error) {
+              document.getElementById("result").innerText = "city not found";
+            } else {
+              document.getElementById("result").innerHTML =
+                "city:" +
+                data.location.name +
+                "<br>" +
+                "region:" +
+                data.location.region +
+                "<br>" +
+                "country:" +
+                data.location.country +
+                "<br>" +
+                "latitude:" +
+                data.location.lat +
+                "<br>" +
+                "longitude:" +
+                data.location.lon +
+                "<br>" +
+                "sunrise:" +
+                data.astronomy.astro.sunrise +
+                "<br>" +
+                "sunshine:" +
+                data.astronomy.astro.sunshine;
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
