@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airtable Record Count</title>
+  </head>
+  <body>
+    <h2>Total Records in Airtable</h2>
+    <h1 id="count">Loading...</h1>
+    <div id="result"></div>
+
+    <script>
+      const BASE_ID = "appDe178p7M9yfTub";
+      const TABLE_NAME = "Executives";
+      const TOKEN =
+        "pat3Bzs2EBZD2Gxjl.2c0bd7cabdaa9c67ac330f9894f8f873d9952d62820e1064ad99ab46bed3f742";
+
+      let totalCount = 0;
+      let offset = "";
+      let allrecords = [];
+
+      function getRecords() {
+        let url = "https://api.airtable.com/v0/" + BASE_ID + "/" + TABLE_NAME;
+
+        // Airtable sends only 100 records at a time, so we need to use offset to get the next set
+
+        if (offset !== "") {
+          url = url + "?offset=" + offset;
+        }
+
+        fetch(url, {
+          headers: {
+            Authorization: "Bearer " + TOKEN,
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            totalCount += data.records.length;
+            for (let i = 0; i < data.records.length; i++) {
+              allrecords.push(data.records[i]);
+            }
+            if (data.offset) {
+              offset = data.offset;
+              getRecords(); // get next 100 records
+            } else {
+              document.getElementById("count").innerHTML = totalCount;
+
+              let display = "";
+              for (let i = 0; i < allrecords.length; i++) {
+                display = display + "<h4>Record" + (i + 1) + "<h4>";
+                let fields = allrecords[i].fields;
+                for (let keys in fields) {
+                  display =
+                    display + "<p>" + keys + ":" + fields[keys] + "</p>";
+                }
+                display += "<hr>";
+              }
+              document.getElementById("result").innerHTML = display;
+            }
+          })
+          .catch(function (error) {
+            console.log("Error:", error);
+          });
+      }
+
+      getRecords();
+    </script>
+  </body>
+</html>
