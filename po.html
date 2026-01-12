@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Leads Data</h2>
+
+    <pre id="output">Loading.....</pre>
+
+    <script>
+      const BASEURL = "https://aqofyinhguapqaklzflp.supabase.co/rest/v1/leads";
+
+      const APIKEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns ";
+
+      function check() {
+        fetch(BASEURL + "?select=*&limit=10&offset=0", {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            {
+              let output = document.getElementById("output");
+              output.innerText = "";
+
+              data.forEach((item, index) => {
+                output.innerHTML +=
+                  "\n" + "<b>" + "Record " + "</b>" + (index + 1) + "\n";
+
+                for (let key in item) {
+                  output.innerHTML += key + " : " + item[key] + "\n";
+                }
+              });
+            }
+          });
+      }
+      check();
+    </script>
+  </body>
+</html>
