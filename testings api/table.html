@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Leads Data</h2>
+
+    <table border="1">
+      <thead>
+        <tr id="tablehead"></tr>
+      </thead>
+      <tbody id="tablebody"></tbody>
+    </table>
+
+    <script>
+      const BASEURL = "https://aqofyinhguapqaklzflp.supabase.co/rest/v1/leads";
+
+      const APIKEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns";
+
+      function check() {
+        fetch(BASEURL + "?select=*&limit=300&offset=1007", {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            let head = document.getElementById("tablehead");
+            let body = document.getElementById("tablebody");
+
+            for (let key in data[0]) {
+              head.innerHTML += "<th>" + key + "</th>";
+            }
+
+            data.forEach(function (item) {
+              let a = "<tr>";
+
+              for (let key in item) {
+                a += "<td>" + item[key] + "</td>";
+              }
+
+              a += "</tr>";
+              body.innerHTML += a;
+            });
+          });
+      }
+
+      check();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select id="select">
+      <option value="">Select Executive</option>
+    </select>
+    <table border="1">
+      <thead>
+        <tr id="tableHead"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <script>
+      const URL = "https://aqofyinhguapqaklzflp.supabase.co/rest/v1/leads";
+
+      const APIKEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns";
+      function executives() {
+        fetch(URL + "?select=Executive", {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            let dropdown = document.getElementById("select");
+            let exe = "";
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].Executive !== exe) {
+                let option = document.createElement("option");
+                option.value = data[i].Executive;
+                option.innerHTML = data[i].Executive;
+
+                dropdown.appendChild(option);
+                exe = data[i].Executive;
+              }
+            }
+          });
+      }
+      function table(url) {
+        fetch(url, {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            let head = document.getElementById("tableHead");
+            let body = document.getElementById("tableBody");
+
+            head.innerHTML = "";
+            body.innerHTML = "";
+
+            for (let key in data[0]) {
+              let th = document.createElement("th");
+              th.textContent = key;
+              head.appendChild(th);
+            }
+
+            data.forEach((row) => {
+              let tr = document.createElement("tr");
+              for (let key in row) {
+                let td = document.createElement("td");
+                td.textContent = row[key];
+                tr.appendChild(td);
+              }
+              body.appendChild(tr);
+            });
+          });
+      }
+
+      function final() {
+        let exec = document.getElementById("select").value;
+
+        if (exec === "") {
+          table(URL + "?select=*");
+        } else {
+          table(URL + "?select=*&Executive=eq." + exec);
+        }
+      }
+      document.getElementById("select").addEventListener("change", final);
+
+      executives();
+      table(URL + "?select=*&limit=300&offset=1007");
+    </script>
+  </body>
+</html>

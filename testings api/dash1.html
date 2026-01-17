@@ -1,34 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <style>
-      table {
-        border: 1px solid black;
+      .buttons {
+        display: block;
+      }
+      table,
+      tr,
+      td,
+      th {
+        border: 2px solid rgb(199, 19, 19);
       }
     </style>
   </head>
-
   <body>
-    <h2>Leads Data</h2>
-
+    <div class="buttons">
+      <button
+        class="btn btn-danger"
+        type="button"
+        id="today"
+        onclick="return today()"
+      >
+        Today
+      </button>
+      <button
+        class="btn btn-danger"
+        type="button"
+        id="last7"
+        onclick="return last7()"
+      >
+        Last 7days
+      </button>
+      <button
+        class="btn btn-danger"
+        type="button"
+        id="last30"
+        onclick="return last30()"
+      >
+        Last 30days
+      </button>
+      <button
+        class="btn btn-danger"
+        type="button"
+        id="all"
+        onclick="return all()"
+      >
+        All Days
+      </button>
+    </div>
+    <p id="result"></p>
     <table border="1">
       <thead>
         <tr id="tablehead"></tr>
       </thead>
       <tbody id="tablebody"></tbody>
     </table>
-
     <script>
       const BASEURL = "https://aqofyinhguapqaklzflp.supabase.co/rest/v1/leads";
 
       const APIKEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns";
 
-      function check() {
-        fetch(BASEURL + "?select=*&limit=15&offset=0", {
+      function today() {
+        fetch(BASEURL + "?select=*", {
           headers: {
             apikey: APIKEY,
             Authorization: "Bearer " + APIKEY,
@@ -53,12 +101,11 @@
               }
 
               a += "</tr>";
+
               body.innerHTML += a;
             });
           });
       }
-
-      check();
     </script>
   </body>
 </html>

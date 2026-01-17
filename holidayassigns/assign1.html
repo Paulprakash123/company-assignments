@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: tomato;
+      }
+      input {
+        display: block;
+        border: 2px solid rgb(16, 15, 15);
+        border-radius: 3px;
+        color: rgb(8, 2, 2);
+        background-color: rgb(235, 231, 231);
+        padding: 5px;
+        margin-left: auto;
+        font-size: 16px;
+        margin-right: auto;
+      }
+      .box {
+        border: 2px solid white;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: white;
+        color: black;
+        width: 220px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      h3 {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" placeholder="Search name or city" id="search" />
+    <div class="container" id="container"></div>
+    <script>
+      const url = "https://jsonplaceholder.typicode.com/users";
+      let all = [];
+
+      function check() {
+        fetch(url)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            all = data;
+            showUsers(all);
+          });
+      }
+
+      function showUsers(users) {
+        let container = document.getElementById("container");
+        container.innerHTML = "";
+
+        users.forEach(function (user) {
+          let card = document.createElement("div");
+          card.className = "box";
+
+          // card.innerHTML =
+          //   "<h3>" +
+          //   user.name +
+          //   "</h3>" +
+          //   "<p><b>Email:</b> " +
+          //   user.email +
+          //   "</p>" +
+          //   "<p><b>City:</b> " +
+          //   user.address.city +
+          //   "</p>";
+          //chatgpt-----
+          let searchText = document.getElementById("search").value;
+
+          let nameText = user.name.replace(
+            searchText,
+            "<mark>" + searchText + "</mark>",
+          );
+
+          let cityText = user.address.city.replace(
+            searchText,
+            "<mark>" + searchText + "</mark>",
+          );
+
+          card.innerHTML =
+            "<h3>" +
+            nameText +
+            "</h3>" +
+            "<p><b>Email:</b> " +
+            user.email +
+            "</p>" +
+            "<p><b>City:</b> " +
+            cityText +
+            "</p>";
+
+          container.appendChild(card);
+        });
+      }
+
+      check();
+      //chatgpt----
+      document.getElementById("search").addEventListener("keyup", function () {
+        let searchValue = document.getElementById("search").value.toLowerCase();
+
+        let finalusers = all.filter(function (user) {
+          return (
+            user.name.toLowerCase().includes(searchValue) ||
+            user.address.city.toLowerCase().includes(searchValue)
+          );
+        });
+
+        showUsers(finalusers);
+      });
+    </script>
+  </body>
+</html>

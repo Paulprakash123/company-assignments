@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: beige;
+      }
+      h1 {
+        text-align: center;
+      }
+      input,
+      button {
+        display: block;
+        border: 2px solid rgb(16, 15, 15);
+        border-radius: 3px;
+        color: rgb(8, 2, 2);
+        background-color: rgb(249, 155, 155);
+        padding: 5px;
+        margin-left: auto;
+        font-size: 16px;
+        margin-right: auto;
+      }
+      .container {
+        padding: 15px;
+        border-radius: 10px;
+
+        color: black;
+        width: 240px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      b {
+        text-decoration: underline;
+      }
+      #result {
+        text-align: center;
+        color: black;
+        font-size: larger;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>News Search App..</h1>
+    <input type="text" placeholder="Search Keyword" id="keyword" /><br /><br />
+    <button onclick="return check();" id="button">Search</button><br /><br />
+    <div class="container" id="container">
+      <h4 id="title"></h4>
+      <p id="des"></p>
+      <p id="src"></p>
+    </div>
+    <p id="result"></p>
+    <script>
+      const apikey = "0aa5f186806f463bbdf9596a1c002333";
+
+      function check() {
+        let parameter = document.getElementById("keyword").value;
+
+        const baseurl =
+          "https://newsapi.org/v2/everything?q=" +
+          parameter +
+          "&apiKey=" +
+          apikey;
+        if (parameter === "") {
+          document.getElementById("result").innerText = "No Results Found";
+          return;
+        }
+        fetch(baseurl)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+
+            document.getElementById("container").style.background =
+              " linear-gradient(to right, #FFD1DC,  #CDB4DB,  #A2D2FF)";
+            document.getElementById("button").style.background =
+              " linear-gradient(to right, #FFD1DC,  #CDB4DB,  #A2D2FF)";
+            if (data.articles && data.articles.length > 0) {
+              document.getElementById("title").innerHTML =
+                "<b>Title :</b><a href='" +
+                data.articles[0].url +
+                "'>" +
+                data.articles[0].title +
+                "</a>";
+
+              document.getElementById("des").innerHTML =
+                "<b>Description :</b>" + data.articles[0].description;
+
+              document.getElementById("src").innerHTML =
+                "<b>Source :</b>" + data.articles[0].source.name;
+
+              document.getElementById("result").innerText = "";
+            } else {
+              document.getElementById("result").innerHTML = "No results found";
+            }
+          });
+      }
+    </script>
+  </body>
+</html>

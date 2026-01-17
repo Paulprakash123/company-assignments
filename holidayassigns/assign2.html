@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input,
+      button {
+        width: 100px;
+
+        display: block;
+        border: 3px solid rgb(16, 15, 15);
+        border-radius: 3px;
+        color: rgb(8, 0, 0);
+        background-color: rgb(247, 145, 145);
+        padding: 5px;
+        margin-left: auto;
+        font-size: 16px;
+        margin-right: 15px;
+        margin-top: -10px;
+      }
+      h1 {
+        text-decoration: underline;
+      }
+      #category {
+        /* width: 100px; */
+
+        display: block;
+        border: 3px solid rgb(16, 15, 15);
+        border-radius: 3px;
+        color: rgb(8, 0, 0);
+        background-color: rgb(247, 145, 145);
+        padding: 5px;
+        /* margin-left: auto; */
+        font-size: 16px;
+        /* margin-right: 15px; */
+      }
+      .box {
+        border: 2px solid white;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: rgb(234, 94, 94);
+        color: black;
+        width: 220px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .h6 {
+        width: 10rem;
+        height: 10rem;
+      }
+      .h6 img {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🏬Product Store....</h1>
+    <select id="category">
+      <option value="">Category Filter</option>
+    </select>
+    <input type="text" placeholder="min range" id="min" /><br />
+    <input type="text" placeholder="max range" id="max" /><br />
+    <button onclick="check3()">Price</button>
+
+    <div class="container" id="container"></div>
+    <script>
+      const url = "https://fakestoreapi.com/products";
+      let all = [];
+
+      function check() {
+        fetch(url)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            all = data;
+            products(all);
+          });
+      }
+      function products(users) {
+        let container = document.getElementById("container");
+        container.innerHTML = "";
+
+        users.forEach(function (user) {
+          let card = document.createElement("div");
+          card.className = "box";
+
+          card.innerHTML =
+            "<div class='h6'><img src='" +
+            user.image +
+            "'></div>" +
+            "<p><b>Title:</b> " +
+            user.title +
+            "</p>" +
+            "<p><b>price:</b> " +
+            user.price +
+            "</p>" +
+            "<p><b>Category :</b>" +
+            user.category +
+            "</p>";
+
+          container.appendChild(card);
+        });
+      }
+
+      check();
+      function check2() {
+        fetch(url)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            let dropdown = document.getElementById("category");
+            let cat = "";
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].category !== cat) {
+                let option = document.createElement("option");
+                option.value = data[i].category;
+                option.innerHTML = data[i].category;
+
+                dropdown.appendChild(option);
+                cat = data[i].category;
+              }
+            }
+          });
+      }
+      check2();
+      document
+        .getElementById("category")
+        .addEventListener("change", function () {
+          let selectedCategory = document.getElementById("category").value;
+
+          let finalproducts = all.filter(function (item) {
+            return item.category === selectedCategory;
+          });
+
+          products(finalproducts);
+        });
+      function check3() {
+        let minprice = +document.getElementById("min").value;
+        let maxprice = +document.getElementById("max").value;
+
+        let finalrange = all.filter(function (item) {
+          return item.price >= minprice && item.price <= maxprice;
+        });
+
+        products(finalrange);
+      }
+
+      check3();
+    </script>
+  </body>
+</html>

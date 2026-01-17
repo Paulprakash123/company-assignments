@@ -28,20 +28,24 @@
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns";
 
       function check() {
-        // fetch(BASEURL + "?select=CustomerName&limit=3&offset=3", {
-        // fetch(
-        //   BASEURL + "?select=id,CustomerName&CustomerPhone=eq.918977292297",
-        //   {
-        fetch(
-          BASEURL +
-            "?Status=eq.Interested&select=CustomerName&limit=5&offset=0&order=created_at.desc",
-          {
-            headers: {
-              apikey: APIKEY,
-              Authorization: "Bearer " + APIKEY,
-            },
-          }
-        )
+        fetch(BASEURL + "?select=*&limit=10&offset=0&order=PowerBill.desc", {
+          // fetch(
+          //   BASEURL + "?select=id,CustomerName&CustomerPhone=eq.918977292297",
+          //   {
+          // fetch(
+          //   BASEURL +
+          //     "?Status=eq.Interested&select=CustomerName&limit=5&offset=0&order=created_at.desc",
+          //   {
+          // fetch(
+          //   BASEURL +
+          //     "?select=CustomerName,id,ExecutivePhone&ExecutivePhone=eq.919063178043",
+          //   {
+          // fetch(BASEURL + "?select=*&limit=3&offset=3", {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
           .then(function (response) {
             return response.json();
           })
