@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,11 +17,125 @@
     </table>
     <script>
       const URL = "https://aqofyinhguapqaklzflp.supabase.co/rest/v1/leads";
-
       const APIKEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns";
+
       function executives() {
         fetch(URL + "?select=Executive", {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const dropdown = document.getElementById("select");
+            const unique = new Set();
+
+            data.forEach((item) => {
+              if (item.Executive && !unique.has(item.Executive)) {
+                unique.add(item.Executive);
+
+                const option = document.createElement("option");
+                option.value = item.Executive;
+                option.textContent = item.Executive;
+                dropdown.appendChild(option);
+              }
+            });
+          });
+      }
+
+      function table(url) {
+        fetch(url, {
+          headers: {
+            apikey: APIKEY,
+            Authorization: "Bearer " + APIKEY,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const head = document.getElementById("tableHead");
+            const body = document.getElementById("tableBody");
+
+            head.innerHTML = "";
+            body.innerHTML = "";
+
+            if (data.length === 0) {
+              body.innerHTML = "<tr><td colspan='10'>No data found</td></tr>";
+              return;
+            }
+
+            // Table Head
+            Object.keys(data[0]).forEach((key) => {
+              const th = document.createElement("th");
+              th.textContent = key;
+              head.appendChild(th);
+            });
+
+            // Table Body
+            data.forEach((row) => {
+              const tr = document.createElement("tr");
+              Object.values(row).forEach((value) => {
+                const td = document.createElement("td");
+                td.textContent = value;
+                tr.appendChild(td);
+              });
+              body.appendChild(tr);
+            });
+          });
+      }
+
+      function final() {
+        const exec = document.getElementById("select").value;
+        let query = URL + "?select=*";
+
+        if (exec !== "") {
+          query += "&Executive=eq." + encodeURIComponent(exec);
+        }
+
+        table(query);
+      }
+
+      document.getElementById("select").addEventListener("change", final);
+
+      executives();
+      table(URL + "?select=*&limit=100");
+    </script>
+  </body>
+</html> -->
+<!doctype html>
+<html>
+  <head>
+    <title>Beginner Leads Filter</title>
+  </head>
+  <body>
+    <h3>Select Executive</h3>
+
+    <select id="select">
+      <option value="">All Executives</option>
+    </select>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>CustomerName</th>
+          <th>Executive</th>
+          <th>ExecutivePhone</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+      const URL = "https://aqofyinhguapqaklzflp.supabase.co/rest/v1/leads";
+      const APIKEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxb2Z5aW5oZ3VhcHFha2x6ZmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NzM0MDYsImV4cCI6MjA3ODE0OTQwNn0.FZ1kviVvCWR2k0geZE-lm0BT9ybn8C9mp3uQb2gIMns";
+
+      let allData = [];
+      let executives = [];
+      function check() {
+        fetch(URL + "?select=*&limit=1000", {
           headers: {
             apikey: APIKEY,
             Authorization: "Bearer " + APIKEY,
@@ -31,66 +145,73 @@
             return response.json();
           })
           .then(function (data) {
-            let dropdown = document.getElementById("select");
-            let exe = "";
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].Executive !== exe) {
-                let option = document.createElement("option");
-                option.value = data[i].Executive;
-                option.innerHTML = data[i].Executive;
+            console.log(data);
+            allData = data;
 
-                dropdown.appendChild(option);
-                exe = data[i].Executive;
-              }
-            }
-          });
-      }
-      function table(url) {
-        fetch(url, {
-          headers: {
-            apikey: APIKEY,
-            Authorization: "Bearer " + APIKEY,
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            let head = document.getElementById("tableHead");
-            let body = document.getElementById("tableBody");
-
-            head.innerHTML = "";
-            body.innerHTML = "";
-
-            for (let key in data[0]) {
-              let th = document.createElement("th");
-              th.textContent = key;
-              head.appendChild(th);
-            }
-
-            data.forEach((row) => {
-              let tr = document.createElement("tr");
-              for (let key in row) {
-                let td = document.createElement("td");
-                td.textContent = row[key];
-                tr.appendChild(td);
-              }
-              body.appendChild(tr);
-            });
+            Dropdown(data);
+            showTable(data);
           });
       }
 
-      function final() {
-        let exec = document.getElementById("select").value;
+      function Dropdown(data) {
+        let select = document.getElementById("select");
 
-        if (exec === "") {
-          table(URL + "?select=*");
+        data.forEach(function (item) {
+          if (!executives.includes(item.Executive)) {
+            executives.push(item.Executive);
+
+            let option = document.createElement("option");
+            option.value = item.Executive;
+            option.textContent = item.Executive;
+
+            select.appendChild(option);
+          }
+        });
+      }
+
+      function showTable(data) {
+        let body = document.getElementById("tableBody");
+        body.innerHTML = "";
+
+        data.forEach(function (item) {
+          let row = document.createElement("tr");
+
+          row.innerHTML =
+            "<td>" +
+            item.id +
+            "</td>" +
+            "<td>" +
+            item.CustomerName +
+            "</td>" +
+            "<td>" +
+            item.Executive +
+            "</td>" +
+            "<td>" +
+            item.ExecutivePhone +
+            "</td>";
+
+          body.appendChild(row);
+        });
+      }
+
+      document.getElementById("select").addEventListener("change", function () {
+        let selected = document.getElementById("select").value;
+
+        if (selected === "") {
+          showTable(allData);
         } else {
-          table(URL + "?select=*&Executive=eq." + exec);
-        }
-      }
-      document.getElementById("select").addEventListener("change", final);
+          let final = [];
 
-      executives();
-      table(URL + "?select=*&limit=300&offset=1007");
+          allData.forEach(function (item) {
+            if (item.Executive === selected) {
+              final.push(item);
+            }
+          });
+
+          showTable(final);
+        }
+      });
+      check();
     </script>
   </body>
 </html>
